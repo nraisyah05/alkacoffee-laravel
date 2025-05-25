@@ -1,0 +1,168 @@
+body {
+    margin: 0;
+    background-color: rgba(43, 24, 2, 0.7); /* Background coklat gelap transparan */
+    color: #f5efe6; /* Warna teks krem */
+}
+
+/* Header dan Navbar */
+.header {
+    background-color: rgba(43, 24, 2, 0.7); /* Background coklat gelap transparan */
+    color: #f5efe6; /* Warna teks krem */
+    padding: 10px 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: #f5efe6; /* Warna teks krem */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: #f5efe6; /* Warna teks krem */
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 8px 15px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.nav-links a:hover {
+    background-color: rgba(43, 24, 2, 0.7); /* Background hover coklat gelap */
+    border-radius: 5px;
+}
+
+/* Video Slider */
+.video-slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+.slider-container {
+    overflow: hidden;
+    width: 60%; /* Menentukan lebar slider */
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.card {
+    min-width: 100%; /* Ukuran setiap card diatur agar memenuhi seluruh slider */
+    margin: 0 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(43, 24, 2, 0.7); /* Bayangan coklat gelap */
+    overflow: hidden;
+    text-align: center;
+}
+
+.card video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-bottom: 5px solid rgba(43, 24, 2, 0.7); /* Batas bawah coklat gelap */
+}
+
+/* Pagination Dots */
+.pagination {
+    margin-top: 20px;
+}
+
+.dot {
+    height: 15px;
+    width: 15px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.dot:hover {
+    background-color: rgba(43, 24, 2, 0.7); /* Background hover coklat gelap */
+}
+
+.dot.active {
+    background-color: rgba(43, 24, 2, 0.7); /* Background active coklat gelap */
+}
+
+/* Content Section */
+.content {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Footer */
+.footer {
+    background-color: rgba(43, 24, 2, 0.7); /* Background coklat gelap transparan */
+    color: #f5efe6; /* Warna teks krem */
+    text-align: center;
+    padding: 10px;
+}
+
+@media (max-width: 768px) {
+    .logo h1 {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links li {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    .slider-container {
+        width: 90%;
+    }
+
+    .card {
+        min-width: 100%;
+    }
+}
+
