@@ -10,7 +10,7 @@ use App\Http\Controllers\MitraController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PelangganController;
-use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\PembayaranController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -73,14 +73,14 @@ Route::group(['middleware' => ['checkislogin']], function () {
         Route::get('user/destroy/{param1?}', [UserController::class, 'destroy'])->name('user.destroy');
     });
 
-    //Penjualan
-    // Route::get('penjualan', [PenjualanController::class, 'index'])->name('penjualan.list');
-    // Route::get('penjualan/create', [PenjualanController::class, 'create'])->name('penjualan.create');
-    // Route::post('penjualan/store', [PenjualanController::class, 'store'])->name('penjualan.store');
-
-    // Route::get('penjualan/edit/{param1}', [PenjualanController::class, 'edit'])->name('penjualan.edit');
-    // Route::post('penjualan/update', [PenjualanController::class, 'update'])->name('penjualan.update');
-    // Route::get('penjualan/destroy/{param1}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
+    Route::prefix('pembayaran')->group(function () {
+        Route::get('/', [PembayaranController::class, 'index'])->name('pembayaran.index');
+        Route::post('/tambah', [PembayaranController::class, 'tambahKeranjang'])
+            ->name('pembayaran.tambah');
+        Route::post('/simpan',[PembayaranController::class,'simpan'])->name('pembayaran.simpan');
+        Route::get('/struk/{id}', [PembayaranController::class, 'struk'])->name('pembayaran.struk');
+        Route::get('/struk/pdf/{id}', [PembayaranController::class, 'strukPdf'])->name('pembayaran.struk.pdf');
+    });
 
     //Produk
     Route::get('produk', [ProdukController::class, 'index'])->name('produk.list');
@@ -100,5 +100,3 @@ Route::group(['middleware' => ['checkislogin']], function () {
     Route::post('kasir/update', [KasirController::class, 'update'])->name('kasir.update');
     Route::get('kasir/destroy/{param1}', [KasirController::class, 'destroy'])->name('kasir.destroy');
 });
-
-

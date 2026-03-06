@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Produk;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -38,5 +37,10 @@ class Produk extends Model
         }
 
         return $query;
+    }
+
+    public function detailPenjualan()
+    {
+        return $this->hasMany(DetailPenjualan::class, 'produk_id');
     }
 }

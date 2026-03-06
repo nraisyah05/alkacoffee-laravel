@@ -19,7 +19,7 @@ class PelangganController extends Controller
 
         //Gunakan scope filter untuk memproses query
         $pageData['dataPelanggan'] = Pelanggan::filter($request, $filterableColumns, $searchableColumns)
-                                                ->paginate(5)
+                                                ->paginate(20)
                                                 ->withQueryString();
 
         // Jika pada Controller menerapkan onEachSide

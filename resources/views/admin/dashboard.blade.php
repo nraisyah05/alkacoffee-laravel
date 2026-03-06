@@ -140,10 +140,9 @@
                                                 style="background-color: #f9f9f9; border: none;">
                                                 <div class="d-flex align-items-center">
                                                     {{-- Product Image --}}
-                                                    <img src="{{ asset('gambar/' . $dataProduk->gambar) }}"
+                                                    <img src="{{ asset('storage/' . $dataProduk->gambar) }}"
                                                         alt="Gambar {{ $dataProduk->nama_produk }}"
-                                                        style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-right: 15px;">
-
+                                                        style="width:80px; height:80px; object-fit:cover; border-radius:8px; margin-right:15px;">
                                                     {{-- Product Info --}}
                                                     <div>
                                                         <strong class="d-block">{{ $dataProduk->nama_produk }}</strong>

@@ -55,6 +55,7 @@
 
         {{-- start main content --}}
         @yield('content')
+        @yield('script')
         {{-- end main content --}}
 
         {{-- start footer --}}

@@ -151,6 +151,20 @@
                 </a>
             </li>
             <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
+
+            {{-- pembayaran --}}
+            <li class="nav-item {{ request()->is('pembayaran*') ? 'active' : '' }}">
+                <a href="{{ route('pembayaran.index') }}" class="nav-link">
+                    <span class="sidebar-icon">
+                        <svg class="icon icon-xs me-2" fill="none" stroke-width="1.5" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M2.25 6.75h19.5m-19.5 3h19.5m-19.5 3h19.5m-19.5 3h19.5"></path>
+                        </svg>
+                    </span>
+                    <span class="sidebar-text">Pembayaran</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
