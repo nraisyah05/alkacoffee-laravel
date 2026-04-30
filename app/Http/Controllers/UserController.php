@@ -46,28 +46,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi input
         $request->validate([
             'name' => ['required'],
-            'email' => ['required'],
+            'email' => ['required', 'email', 'unique:users,email'],
+            'username' => ['required', 'unique:users,username'], // tambah ini
             'password' => ['required'],
             'role' => ['required', 'in:Super Administrator,Administrator,Pelanggan,Mitra'],
-            // 'Gambar_User' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
         ]);
 
-        $data = new user;
+        $data = new User; // ganti 'user' jadi 'User' (huruf kapital)
         $data['name'] = $request->name;
         $data['email'] = $request->email;
+        $data['username'] = $request->username; // tambah ini
         $data['password'] = Hash::make($request->password);
         $data['role'] = $request->role;
 
-        if ($request->hasFile('Gambar_User')) {
+        if ($request->hasFile('profil')) {
 
-            $imageName = time() . '.' . $request->Gambar_User->extension();
+            $imageName = time() . '.' . $request->profil->extension();
 
-            $request->Gambar_User->move(public_path('Gambar_User'), $imageName);
+            $request->profil->move(public_path('profil'), $imageName);
 
-            $data->Gambar_User = $imageName;
+            $data->profil = $imageName;
         }
 
         $data->save();
@@ -75,7 +75,6 @@ class UserController extends Controller
         session()->flash('success', 'User berhasil ditambahkan!');
 
         return redirect()->route('user.list');
-
     }
 
     /**
@@ -103,23 +102,20 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-        // Validasi input
         $request->validate([
-            'id' => ['required'], // ID harus ada
+            'id' => ['required'],
             'name' => ['required'],
             'email' => ['required', 'email'],
-            'password' => ['nullable', 'min:6'], // Password opsional
+            'username' => ['required', 'unique:users,username,' . $request->id], // tambah ini (ignore ID sendiri)
+            'password' => ['nullable', 'min:6'],
             'role' => ['required', 'in:Super Administrator,Administrator,Pelanggan,Mitra'],
-            'Gambar_User' => ['nullable', 'image', 'mimes:jpg,jpeg,png'], // Gambar opsional
+            'profil' => ['nullable', 'image', 'mimes:jpg,jpeg,png'],
         ]);
 
-        // Ambil data user berdasarkan ID
         $user = User::findOrFail($request->id);
-
-        // Update data user
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->role = $request->role;
+        $user->username = $request->username; // tambah ini
 
         // Jika password diisi, update password
         if ($request->filled('password')) {
@@ -127,18 +123,18 @@ class UserController extends Controller
         }
 
         // Jika ada file gambar yang diunggah
-        if ($request->hasFile('Gambar_User')) {
+        if ($request->hasFile('profil')) {
             // Hapus gambar lama jika ada
-            if ($user->Gambar_User && file_exists(public_path('Gambar_User/' . $user->Gambar_User))) {
-                unlink(public_path('Gambar_User/' . $user->Gambar_User));
+            if ($user->profil && file_exists(public_path('profil/' . $user->profil))) {
+                unlink(public_path('profil/' . $user->profil));
             }
 
             // Simpan gambar baru
-            $imageName = time() . '.' . $request->Gambar_User->extension();
-            $request->Gambar_User->move(public_path('Gambar_User'), $imageName);
+            $imageName = time() . '.' . $request->profil->extension();
+            $request->profil->move(public_path('profil'), $imageName);
 
             // Simpan nama file ke database
-            $user->Gambar_User = $imageName;
+            $user->profil = $imageName;
         }
 
         // Simpan perubahan

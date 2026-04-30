@@ -24,7 +24,7 @@ class User extends Authenticatable
         'username',
         'password',
         'role',
-        'Gambar_User',
+        'profil',
     ];
 
     /**
@@ -50,7 +50,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function scopeFilter(Builder $query, $request, array $filterableColumns, array $searchableColumns = []): Builder
+    public function scopeFilter(Builder $query, \Illuminate\Http\Request $request, array $filterableColumns, array $searchableColumns = []): Builder
     {
         foreach ($filterableColumns as $column) {
             if ($request->filled($column)) {

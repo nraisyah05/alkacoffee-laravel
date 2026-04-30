@@ -26,16 +26,12 @@
             <a href="{{ route('user.list') }}" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
                 Kembali
             </a>
-            {{-- <div class="btn-group ms-2 ms-lg-3">
-                <button type="button" class="btn btn-sm btn-outline-gray-600">Share</button>
-                <button type="button" class="btn btn-sm btn-outline-gray-600">Export</button>
-            </div> --}}
         </div>
     </div>
 
-    {{-- home section --}}
     <div class="card card-body border-0 shadow mb-4">
         <h2 class="h5 mb-4">General information</h2>
+
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -46,49 +42,46 @@
             </div>
         @endif
 
-
-
         <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <div>
-                        <label for="name">Name</label>
-                        <input class="form-control" id="name" name="name" type="text"
-                            placeholder="Enter your name" required="">
-                    </div>
+                    <label for="name">Name</label>
+                    <input class="form-control" id="name" name="name" type="text"
+                        placeholder="Masukkan nama lengkap" value="{{ old('name') }}" required>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input class="form-control" id="email" name="email" type="email"
-                            placeholder="name@company.com" required="">
-                    </div>
+                    <label for="username">Username</label>  {{-- TAMBAH INI --}}
+                    <input class="form-control" id="username" name="username" type="text"
+                        placeholder="Masukkan username" value="{{ old('username') }}" required>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input class="form-control" id="password" name="password" type="password"
-                            placeholder="Enter your password" required="">
-                    </div>
+                    <label for="email">Email</label>
+                    <input class="form-control" id="email" name="email" type="email"
+                        placeholder="name@company.com" value="{{ old('email') }}" required>
                 </div>
+                <div class="col-md-6 mb-3">
+                    <label for="password">Password</label>
+                    <input class="form-control" id="password" name="password" type="password"
+                        placeholder="Masukkan password" required>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="role">Role</label>
-                    <select class="form-select mb-0" id="role" name="role" aria-label="Role select example">
-                        <option selected="">Role</option>
-                        <option value="Super Administrator">Super Administrator</option>
-                        <option value="Administrator">Administrator</option>
-                        <option value="Pelanggan">Pelanggan</option>
-                        <option value="Mitra">Mitra</option>
+                    <select class="form-select mb-0" id="role" name="role">
+                        <option value="" disabled selected>-- Pilih Role --</option>
+                        <option value="Super Administrator" {{ old('role') == 'Super Administrator' ? 'selected' : '' }}>Super Administrator</option>
+                        <option value="Administrator" {{ old('role') == 'Administrator' ? 'selected' : '' }}>Administrator</option>
+                        <option value="Pelanggan" {{ old('role') == 'Pelanggan' ? 'selected' : '' }}>Pelanggan</option>
+                        <option value="Mitra" {{ old('role') == 'Mitra' ? 'selected' : '' }}>Mitra</option>
                     </select>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="Gambar_User">Gambar User</label>
-                    <input class="form-control" id="Gambar_User" type="file" name="Gambar_User" placeholder="">
+                    <label for="profil">Gambar User</label>
+                    <input class="form-control" id="profil" type="file" name="profil">
                 </div>
             </div>
 

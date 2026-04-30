@@ -14,27 +14,24 @@
                             </svg>
                         </a>
                     </li>
-                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{route('user.list')}}">User</a></li>
-                    <li class="breadcrumb-item active">Edit Data </li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('user.list') }}">User</a></li>
+                    <li class="breadcrumb-item active">Edit Data</li>
                 </ol>
             </nav>
-            <h2 class="h4">Tambah User</h2>
-            <p class="mb-0">Form Perubahan Data user</p>
+            <h2 class="h4">Edit User</h2>
+            <p class="mb-0">Form Perubahan Data User</p>
         </div>
         <div class="btn-toolbar mb-2 mb-md-0">
             <a href="{{ route('user.list') }}" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
                 Kembali
             </a>
-            {{-- <div class="btn-group ms-2 ms-lg-3">
-                <button type="button" class="btn btn-sm btn-outline-gray-600">Share</button>
-                <button type="button" class="btn btn-sm btn-outline-gray-600">Export</button>
-            </div> --}}
         </div>
     </div>
 
     <div class="card card-body border-0 shadow mb-4">
         <h2 class="h5 mb-4">General information</h2>
+
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -47,54 +44,61 @@
 
         <form action="{{ route('user.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" name="id" value="{{ $dataUser->id }}">
+
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <div>
-                        <label for="name">Name</label>
-                        <input class="form-control" id="name" name="name" type="text"
-                            value="{{ $dataUser->name }}" placeholder="Enter your name" required="">
-                    </div>
+                    <label for="name">Name</label>
+                    <input class="form-control" id="name" name="name" type="text"
+                        value="{{ old('name', $dataUser->name) }}" placeholder="Masukkan nama lengkap" required>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input class="form-control" id="email" name="email" type="email"
-                            value="{{ $dataUser->email }}" placeholder="name@company.com" required="">
-                    </div>
+                    <label for="username">Username</label>  {{-- TAMBAH INI --}}
+                    <input class="form-control" id="username" name="username" type="text"
+                        value="{{ old('username', $dataUser->username) }}" placeholder="Masukkan username" required>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input class="form-control" id="password" name="password" type="password"
-                            value="{{ $dataUser->password }}" placeholder="Enter your password" required="">
-                    </div>
+                    <label for="email">Email</label>
+                    <input class="form-control" id="email" name="email" type="email"
+                        value="{{ old('email', $dataUser->email) }}" placeholder="name@company.com" required>
                 </div>
+                <div class="col-md-6 mb-3">
+                    <label for="password">Password</label>
+                    <input class="form-control" id="password" name="password" type="password"
+                        placeholder="Kosongkan jika tidak ingin mengubah password">
+                    <small class="text-muted">Kosongkan jika tidak ingin mengubah password</small>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="role">Role</label>
-                    <select class="form-select mb-0" id="role" name="role" aria-label="Role select example">
-                        <option selected=''>Role</option>
-                        <option value="Super Administrator" {{ $dataUser->role == 'Super Administrator' ? 'selected' : ''}}>Super Administrator</option>
-                        <option value="Administrator" {{ $dataUser->role == 'Administrator' ? 'selected' : ''}} >Administrator</option>
-                        <option value="Pelanggan" {{ $dataUser->role == 'Pelanggan' ? 'selected' : ''}}>Pelanggan</option>
-                        <option value="Mitra" {{ $dataUser->role == 'Mitra' ? 'selected' : ''}}>Mitra</option>
+                    <select class="form-select mb-0" id="role" name="role">
+                        <option value="" disabled>-- Pilih Role --</option>
+                        <option value="Super Administrator" {{ old('role', $dataUser->role) == 'Super Administrator' ? 'selected' : '' }}>Super Administrator</option>
+                        <option value="Administrator" {{ old('role', $dataUser->role) == 'Administrator' ? 'selected' : '' }}>Administrator</option>
+                        <option value="Pelanggan" {{ old('role', $dataUser->role) == 'Pelanggan' ? 'selected' : '' }}>Pelanggan</option>
+                        <option value="Mitra" {{ old('role', $dataUser->role) == 'Mitra' ? 'selected' : '' }}>Mitra</option>
                     </select>
                 </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                <div class="form-group">
-                    <label for="Gambar_User">Gambar User</label>
-                    <input class="form-control" id="Gambar_User" type="file" name="Gambar_User"
-                        value="{{ $dataUser->Gambar_User }}" placeholder="Enter your Gambar_User" required="">
+                <div class="col-md-6 mb-3">
+                    <label for="profil">Gambar User</label>
+                    <input class="form-control" id="profil" type="file" name="profil">
+                    {{-- Tampilkan gambar saat ini jika ada --}}
+                    @if ($dataUser->profil)
+                        <div class="mt-2">
+                            <small class="text-muted">Gambar saat ini:</small><br>
+                            <img src="{{ asset('profil/' . $dataUser->profil) }}"
+                                width="80px" class="rounded mt-1" alt="Gambar User">
+                        </div>
+                    @endif
                 </div>
             </div>
 
             <div class="mt-3">
                 <button class="btn btn-info mt-2 animate-up-2" type="submit">Simpan Perubahan</button>
             </div>
-
-            <input type="hidden" name="id" value="{{ $dataUser->id }}" />
         </form>
     </div>
 @endsection

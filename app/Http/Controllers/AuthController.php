@@ -36,7 +36,10 @@ class AuthController extends Controller
             'password.min' => 'Password minimal terdiri dari 3 karakter.',
         ]);
 
-        $user = User::where('email', $validated['username'])->first();
+        // Cek apakah input berupa email atau username
+        $loginField = filter_var($validated['username'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        $user = User::where($loginField, $validated['username'])->first();
 
         if ($user && Hash::check($validated['password'], $user->password)) {
             Auth::login($user);
@@ -68,11 +71,12 @@ class AuthController extends Controller
 
     public function handleGoogleCallback()
     {
-        $googleUser = Socialite::driver('google')->stateless()->user();
-        $email_user = $googleUser->email;
-        // dd($email_user);
+        /** @var \Laravel\Socialite\Two\GoogleProvider $driver */
+        $driver = Socialite::driver('google');
 
-        //pengecekan email google
+        $googleUser = $driver->stateless()->user();
+        $email_user = $googleUser->email;
+
         $user = User::where('email', $email_user)->first();
         if ($user) {
             Auth::login($user);
