@@ -28,6 +28,14 @@
         </tbody>
     </table>
 
-    <button onclick="window.print()" class="btn btn-primary">Cetak Resi</button>
+    <div class="mt-3 d-flex gap-2">
+    <button onclick="window.print()" class="btn btn-primary">
+        Cetak Resi
+    </button>
+
+    <a href="{{ route('pembayaran.index') }}" class="btn btn-secondary">
+        Kembali
+    </a>
+</div>
 </div>
 @endsection

@@ -12,13 +12,13 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembayaranController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 //General
 //Home
-Route::get('home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 // Route::get('home/loginadmin', [HomeController::class, 'loginadmin'])->name('loginadmin');
 
 //Auth
@@ -78,6 +78,7 @@ Route::group(['middleware' => ['checkislogin']], function () {
         Route::post('/tambah', [PembayaranController::class, 'tambahKeranjang'])
             ->name('pembayaran.tambah');
         Route::post('/simpan',[PembayaranController::class,'simpan'])->name('pembayaran.simpan');
+        Route::post('/hapus',    [PembayaranController::class, 'hapusKeranjang'])->name('pembayaran.hapus');
         Route::get('/struk/{id}', [PembayaranController::class, 'struk'])->name('pembayaran.struk');
         Route::get('/struk/pdf/{id}', [PembayaranController::class, 'strukPdf'])->name('pembayaran.struk.pdf');
     });

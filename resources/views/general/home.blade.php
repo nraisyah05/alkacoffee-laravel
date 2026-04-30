@@ -1,750 +1,1156 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Dashboard ALKA</title>
-    <!-- Favicon-->
+    <meta name="description" content="Palantha Breakfast & Cafe - Sarapan Terbaik di Kota" />
+    <title>Palantha Breakfast & Cafe</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('assets-general/assets/favicon.ico') }}" />
-    <!-- Font Awesome icons (free version)-->
+
+    <!-- Font Awesome -->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="{{ asset('assets-general/css/styles.css') }}" rel="stylesheet" />
+
+    <!-- Google Fonts: Playfair Display + DM Sans -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --hijau-tua: #1F5E4A;
+            --hijau-muda: #2D7A5F;
+            --hijau-accent: #3A9B78;
+            --krem: #F5EFE6;
+            --krem-gelap: #EBE0CE;
+            --coklat: #8B5E3C;
+            --teks-gelap: #1A2E25;
+            --teks-abu: #5A6B64;
+            --putih: #FEFEFE;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--krem);
+            color: var(--teks-gelap);
+            overflow-x: hidden;
+        }
+
+        /* ===== NAVBAR ===== */
+        #mainNav {
+            background: transparent;
+            padding: 1.2rem 0;
+            transition: all 0.4s ease;
+        }
+
+        #mainNav.scrolled {
+            background: var(--hijau-tua) !important;
+            padding: 0.8rem 0;
+            box-shadow: 0 4px 20px rgba(31, 94, 74, 0.3);
+        }
+
+        .navbar-brand-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--putih) !important;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-link {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.85) !important;
+            padding: 0.5rem 1rem !important;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--putih) !important;
+        }
+
+        .nav-logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            object-fit: cover;
+            margin-right: 0.6rem;
+        }
+
+        /* ===== HERO / MASTHEAD ===== */
+        .masthead {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--hijau-tua) 0%, #0D3D2C 50%, #0A2A1E 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .masthead::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(ellipse 60% 40% at 70% 30%, rgba(58, 155, 120, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 60% at 20% 70%, rgba(31, 94, 74, 0.2) 0%, transparent 50%);
+        }
+
+        /* Dekorasi lingkaran */
+        .masthead::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            top: -200px;
+            right: -200px;
+        }
+
+        .hero-deco {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            bottom: -150px;
+            left: -100px;
+        }
+
+        .masthead-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .masthead-badge {
+            display: inline-block;
+            background: rgba(58, 155, 120, 0.2);
+            border: 1px solid rgba(58, 155, 120, 0.4);
+            color: #7DC4AC;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+            animation: fadeInDown 0.8s ease both;
+        }
+
+        .masthead-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-weight: 900;
+            color: var(--putih);
+            line-height: 1.05;
+            margin-bottom: 0.3rem;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .masthead-heading span {
+            color: #7DC4AC;
+            font-style: italic;
+        }
+
+        .masthead-subheading {
+            font-size: 1rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.65);
+            letter-spacing: 0.05em;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .btn-hero {
+            background: linear-gradient(135deg, var(--hijau-accent), var(--hijau-muda));
+            color: var(--putih);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.9rem 2.2rem;
+            border-radius: 50px;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(31, 94, 74, 0.4);
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .btn-hero:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 35px rgba(31, 94, 74, 0.5);
+            color: var(--putih);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== SECTION UMUM ===== */
+        .page-section {
+            padding: 5rem 0;
+        }
+
+        .section-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 900;
+            color: var(--teks-gelap);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subheading {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            font-size: 1rem;
+            color: var(--teks-abu);
+            margin-bottom: 3rem;
+        }
+
+        .section-divider {
+            width: 50px;
+            height: 3px;
+            background: var(--hijau-tua);
+            margin: 0.8rem auto 1rem;
+            border-radius: 2px;
+        }
+
+        /* ===== SERVICES ===== */
+        #services {
+            background: var(--putih);
+        }
+
+        .service-card {
+            padding: 2.5rem 1.5rem;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .service-card:hover {
+            background: var(--krem);
+            transform: translateY(-5px);
+        }
+
+        .service-icon-wrap {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--hijau-tua), var(--hijau-accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 8px 20px rgba(31, 94, 74, 0.25);
+        }
+
+        .service-icon-wrap i {
+            color: white;
+            font-size: 1.6rem;
+        }
+
+        .service-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--teks-gelap);
+            margin-bottom: 0.8rem;
+        }
+
+        .service-card p {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--teks-abu);
+        }
+
+        /* ===== PRODUK ===== */
+        #portfolio {
+            background: var(--krem);
+        }
+
+        .bulan-badge {
+            display: inline-block;
+            background: var(--hijau-tua);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+        }
+
+        .produk-card {
+            background: var(--putih);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.35s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            height: 100%;
+        }
+
+        .produk-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(31, 94, 74, 0.18);
+        }
+
+        .produk-img-wrap {
+            position: relative;
+            overflow: hidden;
+            height: 220px;
+            background: var(--krem-gelap);
+        }
+
+        .produk-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .produk-card:hover .produk-img-wrap img {
+            transform: scale(1.05);
+        }
+
+        .produk-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(31, 94, 74, 0.8), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 1rem;
+        }
+
+        .produk-card:hover .produk-overlay {
+            opacity: 1;
+        }
+
+        .produk-overlay-text {
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .produk-rank {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 32px;
+            height: 32px;
+            background: var(--hijau-tua);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .produk-rank.rank-1 {
+            background: #C9933A;
+        }
+
+        .produk-rank.rank-2 {
+            background: #8A8A8A;
+        }
+
+        .produk-rank.rank-3 {
+            background: var(--coklat);
+        }
+
+        .produk-body {
+            padding: 1.2rem;
+        }
+
+        .produk-kategori {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--hijau-tua);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .produk-nama {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--teks-gelap);
+            margin-bottom: 0.5rem;
+        }
+
+        .produk-harga {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--hijau-muda);
+        }
+
+        .produk-terjual {
+            font-size: 0.78rem;
+            color: var(--teks-abu);
+            margin-top: 0.2rem;
+        }
+
+        /* ===== ABOUT / TIMELINE ===== */
+        #about {
+            background: var(--putih);
+        }
+
+        .timeline {
+            list-style: none;
+            padding: 0;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--hijau-tua), var(--krem-gelap));
+            transform: translateX(-50%);
+        }
+
+        .timeline li {
+            position: relative;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline li:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline li:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-img-wrap {
+            flex: 0 0 100px;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+        }
+
+        .timeline-img-wrap img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--putih);
+            box-shadow: 0 4px 15px rgba(31, 94, 74, 0.2);
+        }
+
+        .timeline-img-wrap.last-item {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--hijau-tua), var(--hijau-accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timeline-img-wrap.last-item h4 {
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.65rem;
+            text-align: center;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .timeline-panel {
+            flex: 1;
+            background: var(--krem);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            margin: 0 2rem;
+            position: relative;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-panel::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 2px;
+            background: var(--krem-gelap);
+            transform: translateY(-50%);
+        }
+
+        .timeline li:nth-child(odd) .timeline-panel::before {
+            right: -20px;
+        }
+
+        .timeline li:nth-child(even) .timeline-panel::before {
+            left: -20px;
+        }
+
+        .timeline-year {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--hijau-tua);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--teks-gelap);
+            margin-bottom: 0.7rem;
+        }
+
+        .timeline-desc {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--teks-abu);
+        }
+
+        /* ===== TEAM ===== */
+        #team {
+            background: var(--hijau-tua);
+        }
+
+        #team .section-heading {
+            color: var(--putih);
+        }
+
+        #team .section-subheading {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        #team .section-divider {
+            background: var(--hijau-accent);
+        }
+
+        .team-card {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .team-img-wrap {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 1.2rem;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .team-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--putih);
+            margin-bottom: 0.2rem;
+        }
+
+        .team-card .nim {
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.55);
+            letter-spacing: 0.05em;
+        }
+
+        .team-tagline {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-style: italic;
+            line-height: 1.7;
+            max-width: 500px;
+            margin: 2rem auto 0;
+        }
+
+        /* ===== LOCATION ===== */
+        #location {
+            background: var(--krem);
+        }
+
+        .location-address {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+            color: var(--hijau-tua);
+            font-weight: 500;
+            margin-bottom: 2.5rem;
+        }
+
+        .map-wrap {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(31, 94, 74, 0.15);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--teks-gelap);
+            padding: 2rem 0;
+        }
+
+        footer .copy {
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        .social-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.6);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            margin: 0 0.2rem;
+        }
+
+        .social-btn:hover {
+            background: var(--hijau-tua);
+            color: white;
+        }
+
+        .footer-link {
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.45);
+            text-decoration: none;
+            transition: color 0.3s;
+            margin-left: 1rem;
+        }
+
+        .footer-link:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* ===== MODAL PRODUK ===== */
+        .modal-content {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .modal-produk-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .modal-produk-body {
+            padding: 2rem;
+        }
+
+        .modal-produk-body h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--teks-gelap);
+        }
+
+        .modal-produk-kategori {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--hijau-tua);
+            font-weight: 600;
+        }
+
+        .modal-harga {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--hijau-muda);
+            margin: 1rem 0;
+        }
+
+        .btn-close-modal {
+            background: var(--hijau-tua);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-close-modal:hover {
+            background: var(--hijau-muda);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline li {
+                flex-direction: column !important;
+                align-items: flex-start;
+                padding-left: 50px;
+            }
+
+            .timeline-img-wrap {
+                position: absolute;
+                left: 0;
+            }
+
+            .timeline-panel {
+                margin: 0;
+                margin-top: 0.5rem;
+            }
+
+            .timeline-panel::before {
+                display: none;
+            }
+        }
+
+        /* ===== PRODUK PLACEHOLDER (jika tidak ada gambar) ===== */
+        .produk-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--krem-gelap), var(--krem));
+        }
+
+        .produk-placeholder i {
+            font-size: 3rem;
+            color: var(--hijau-accent);
+            opacity: 0.4;
+        }
+    </style>
 </head>
 
 <body id="page-top">
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
-            {{-- logo --}}
-            <img src="{{ asset('assets-admin/img/brand/ALKA.LOGO.png') }}"
-                class="card-img-top rounded-circle border-white d-block mx-auto me-2" alt="Bonnie Green"
-                style="width: 50px; height: 50px;">
-            <a class="navbar-brand text-white fs-3 fw-bold" href="#">ALKA.COFFEE</a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                Menu
-                <i class="fas fa-bars ms-1"></i>
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container">
+            <img src="{{ asset('assets-admin/img/brand/logo.jpg') }}" class="nav-logo" alt="Palantha Logo">
+            <a class="navbar-brand-text" href="#">Palantha</a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarResponsive">
+                <i class="fas fa-bars text-white"></i>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#portfolio">Product</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#location">Location</a></li>
+                <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="#services">Layanan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">Tentang</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#team">Tim</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#location">Lokasi</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('login.admin') }}">Admin</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    <!-- Masthead-->
+
+    <!-- ===== HERO ===== -->
     <header class="masthead">
-        <div class="container">
-            <div class="masthead-subheading">Welcome To Our Website!</div>
-            <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-            <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
+        <div class="hero-deco"></div>
+        <div class="masthead-content">
+            <div class="masthead-badge">☕ Breakfast & Cafe · Sejak 2021</div>
+            <h1 class="masthead-heading">
+                Palantha<br><span>Breakfast & Cafe</span>
+            </h1>
+            <p class="masthead-subheading mt-4">Mulai harimu dengan cita rasa terbaik</p>
+            <a class="btn-hero" href="#services">Lihat Selengkapnya</a>
         </div>
     </header>
-    <!-- Services-->
+
+    <!-- ===== SERVICES ===== -->
     <section class="page-section" id="services">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Services</h2>
-                <h3 class="section-subheading text-muted">Kami selalu memberikan pelayanan maksimal kepada para
-                    pelanggan kami</h3>
+                <h2 class="section-heading">Layanan Kami</h2>
+                <div class="section-divider"></div>
+                <p class="section-subheading">Kami selalu memberikan pelayanan terbaik untuk setiap tamu yang datang</p>
             </div>
-            <div class="row text-center">
+            <div class="row g-4 text-center">
                 <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-custom"></i>
-                        <i class="fas fa-users fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <h4 class="my-3">Responsif dan Ramah</h4>
-                    <p class="text-muted">Memberikan layanan yang cepat dan responsif untuk memastikan kepuasan
-                        pelanggan, baik melalui komunikasi langsung, telepon, maupun platform digital, dengan tim yang
-                        selalu siap membantu menjawab pertanyaan atau menangani keluhan.</p>
+                    <div class="service-card">
+                        <div class="service-icon-wrap">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4>Penuh Kehangatan</h4>
+                        <p>Setiap tamu disambut dengan senyuman dan pelayanan yang tulus dari hati. Kami percaya bahwa
+                            pengalaman makan yang menyenangkan dimulai dari keramahan tim kami.</p>
+                    </div>
                 </div>
                 <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-custom"></i>
-                        <i class="fas fa-cutlery fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <h4 class="my-3">Fasilitas Lengkap</h4>
-                    <p class="text-muted">Menyediakan fasilitas yang mendukung kenyamanan pelanggan, seperti ruang
-                        tunggu yang nyaman, akses Wi-Fi gratis, tempat parkir luas, dan area bermain untuk anak-anak,
-                        sehingga pengalaman pelanggan menjadi lebih menyenangkan.</p>
+                    <div class="service-card">
+                        <div class="service-icon-wrap">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h4>Menu Segar Setiap Hari</h4>
+                        <p>Bahan-bahan segar dipilih setiap pagi untuk memastikan setiap hidangan yang tersaji memiliki
+                            cita rasa terbaik. Dari sarapan ringan hingga menu andalan cafe.</p>
+                    </div>
                 </div>
                 <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-custom"></i>
-                        <i class="fas fa-thumbs-up fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <h4 class="my-3">Kualitas dan Keamanan Terjamin</h4>
-                    <p class="text-muted">Menjamin semua produk dan layanan memenuhi standar kualitas tinggi serta
-                        memprioritaskan keamanan, baik dalam penyajian makanan, kebersihan tempat, hingga layanan
-                        pelanggan, untuk memberikan pengalaman terbaik yang bebas dari risiko.</p>
+                    <div class="service-card">
+                        <div class="service-icon-wrap">
+                            <i class="fas fa-wifi"></i>
+                        </div>
+                        <h4>Suasana Nyaman</h4>
+                        <p>Nikmati Wi-Fi cepat, area duduk yang luas dan nyaman, serta suasana yang cocok untuk bekerja,
+                            bersantai, atau berkumpul bersama keluarga dan sahabat.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Portfolio Grid-->
-    <section class="page-section bg-light" id="portfolio">
+
+    <!-- ===== PRODUK TERLARIS ===== -->
+    <section class="page-section" id="portfolio">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Product</h2>
-                <h3 class="section-subheading text-muted">Kami menyediakan berbagai macam product yang membuatmu bahagia
-                </h3>
+                <h2 class="section-heading">Menu Terlaris</h2>
+                <div class="section-divider"></div>
+                <div class="bulan-badge">
+                    <i class="fas fa-fire-flame-curved me-1"></i>
+                    Top 6 Bulan {{ $namaBulan }}
+                </div>
+                <p class="section-subheading">Menu-menu favorit pelanggan kami bulan ini</p>
             </div>
-            <div class="row">
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <!-- Portfolio item 1-->
-                    <div class="card border-0">
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+
+            <div class="row g-4">
+                @forelse($produkTerlaris as $index => $produk)
+                    <div class="col-lg-4 col-md-6">
+                        <div class="produk-card" data-bs-toggle="modal"
+                            data-bs-target="#modalProduk{{ $produk->produk_id }}">
+                            <div class="produk-img-wrap">
+                                @if ($index < 3)
+                                    <div class="produk-rank rank-{{ $index + 1 }}">
+                                        @if ($index == 0)
+                                            🥇
+                                        @elseif($index == 1)
+                                            🥈
+                                        @else
+                                            🥉
+                                        @endif
+                                    </div>
+                                @else
+                                    <div class="produk-rank">{{ $index + 1 }}</div>
+                                @endif
+
+                                @if ($produk->gambar)
+                                    <img src="{{ asset('storage/' . $produk->gambar) }}"
+                                        alt="{{ $produk->nama_produk }}" />
+                                @else
+                                    <div class="produk-placeholder">
+                                        <i class="fas fa-mug-hot"></i>
+                                    </div>
+                                @endif
+
+                                <div class="produk-overlay">
+                                    <div class="produk-overlay-text">
+                                        <i class="fas fa-eye me-1"></i> Lihat Detail
+                                    </div>
                                 </div>
-                                <img class="img-fluid card-img-top"
-                                    src="{{ asset('assets-general/assets/img/portfolio/1.png') }}" alt="..." />
-                            </a>
-                            <div class="portfolio-caption p-3">
-                                <div class="portfolio-caption-heading" style="color: #B55505;">Matcha Latte</div>
-                                <div class="portfolio-caption-subheading text-muted" style="color: #28a745;">
-                                    <strong>Harga:</strong> Rp 30.000</div>
+                            </div>
+                            <div class="produk-body">
+                                <div class="produk-kategori">{{ $produk->kategori ?? 'Menu Utama' }}</div>
+                                <div class="produk-nama">{{ $produk->nama_produk }}</div>
+                                <div class="produk-harga">Rp {{ number_format($produk->harga, 0, ',', '.') }}</div>
+                                @if (isset($produk->total_terjual))
+                                    <div class="produk-terjual">
+                                        <i class="fas fa-chart-simple me-1"></i>
+                                        {{ $produk->total_terjual }} porsi terjual bulan ini
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <!-- Portfolio item 2-->
-                    <div class="card border-0">
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal2">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+
+                    <!-- Modal Produk -->
+                    <div class="modal fade" id="modalProduk{{ $produk->produk_id }}" tabindex="-1"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                @if ($produk->gambar)
+                                    <img src="{{ asset('storage/' . $produk->gambar) }}" class="modal-produk-img"
+                                        alt="{{ $produk->nama_produk }}">
+                                @endif
+                                <div class="modal-produk-body">
+                                    <div class="modal-produk-kategori">{{ $produk->kategori ?? 'Menu' }}</div>
+                                    <h2>{{ $produk->nama_produk }}</h2>
+                                    <p class="text-muted mt-2" style="font-size:0.9rem; line-height:1.7;">
+                                        {{ $produk->deskripsi ?? 'Menu andalan Palantha Breakfast & Cafe yang selalu dicintai pelanggan kami.' }}
+                                    </p>
+                                    <div class="modal-harga">Rp {{ number_format($produk->harga, 0, ',', '.') }}</div>
+                                    @if (isset($produk->total_terjual))
+                                        <p style="font-size:0.82rem; color: var(--teks-abu);">
+                                            <i class="fas fa-fire-flame-curved text-danger me-1"></i>
+                                            Terjual <strong>{{ $produk->total_terjual }}</strong> porsi bulan ini
+                                        </p>
+                                    @endif
+                                    <div class="mt-3">
+                                        <button class="btn-close-modal" data-bs-dismiss="modal">
+                                            <i class="fas fa-xmark me-1"></i> Tutup
+                                        </button>
+                                    </div>
                                 </div>
-                                <img class="img-fluid card-img-top"
-                                    src="{{ asset('assets-general/assets/img/portfolio/2.png') }}" alt="..." />
-                            </a>
-                            <div class="portfolio-caption p-3">
-                                <div class="portfolio-caption-heading" style="color: #B55505;">Caramel Macchiato</div>
-                                <div class="portfolio-caption-subheading text-muted" style="color: #28a745;">
-                                    <strong>Harga:</strong> Rp 35.000</div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <!-- Portfolio item 3-->
-                    <div class="card border-0">
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal3">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid card-img-top"
-                                    src="{{ asset('assets-general/assets/img/portfolio/3.png') }}" alt="..." />
-                            </a>
-                            <div class="portfolio-caption p-3">
-                                <div class="portfolio-caption-heading" style="color: #B55505;">Hazelnut Latte</div>
-                                <div class="portfolio-caption-subheading text-muted" style="color: #28a745;">
-                                    <strong>Harga:</strong> Rp 33.000</div>
-                            </div>
-                        </div>
+
+                @empty
+                    <div class="col-12 text-center py-5">
+                        <i class="fas fa-mug-hot fa-3x mb-3" style="color: var(--hijau-accent); opacity:0.4;"></i>
+                        <p class="text-muted">Belum ada data produk tersedia.</p>
                     </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-                    <!-- Portfolio item 4-->
-                    <div class="card border-0">
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal4">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid card-img-top"
-                                    src="{{ asset('assets-general/assets/img/portfolio/4.png') }}" alt="..." />
-                            </a>
-                            <div class="portfolio-caption p-3">
-                                <div class="portfolio-caption-heading" style="color: #B55505;">Vanilla Latte</div>
-                                <div class="portfolio-caption-subheading text-muted" style="color: #28a745;">
-                                    <strong>Harga:</strong> Rp 32.000</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mb-4 mb-sm-0">
-                    <!-- Portfolio item 5-->
-                    <div class="card border-0">
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal5">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid card-img-top"
-                                    src="{{ asset('assets-general/assets/img/portfolio/5.png') }}" alt="..." />
-                            </a>
-                            <div class="portfolio-caption p-3">
-                                <div class="portfolio-caption-heading" style="color: #B55505;">Butterscotch Coffee
-                                </div>
-                                <div class="portfolio-caption-subheading text-muted" style="color: #28a745;">
-                                    <strong>Harga:</strong> Rp 35.000</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <!-- Portfolio item 6-->
-                    <div class="card border-0">
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal6">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid card-img-top"
-                                    src="{{ asset('assets-general/assets/img/portfolio/6.png') }}" alt="..." />
-                            </a>
-                            <div class="portfolio-caption p-3">
-                                <div class="portfolio-caption-heading" style="color: #B55505;">Chocolate Frappe</div>
-                                <div class="portfolio-caption-subheading text-muted" style="color: #28a745;">
-                                    <strong>Harga:</strong> Rp 28.000</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>
-    <!-- About-->
+
+    <!-- ===== ABOUT / TIMELINE ===== -->
     <section class="page-section" id="about">
         <div class="container">
-            <div class="text-center">
-                <h2 class="section-heading text-uppercase">About</h2>
-                <h3 class="section-subheading text-muted">"Berawal dari secangkir kopi, tumbuh menjadi tempat penuh
-                    cerita."</h3>
+            <div class="text-center mb-5">
+                <h2 class="section-heading">Perjalanan Kami</h2>
+                <div class="section-divider"></div>
+                <p class="section-subheading">"Dari dapur kecil yang penuh cinta, tumbuh menjadi cafe pilihan kota."
+                </p>
             </div>
+
             <ul class="timeline">
+                <!-- 2021 -->
                 <li>
-                    <div class="timeline-image"><img class="rounded-circle img-fluid"
-                            src="{{ asset('assets-general/assets/img/about/1.jpg') }}" alt="..." /></div>
+                    <div class="timeline-img-wrap">
+                        <img src="{{ asset('assets-general/assets/img/about/1.jpg') }}" alt="2021" />
+                    </div>
                     <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4>2009-2011</h4>
-                            <h4 class="subheading">Awal yang Sederhana</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <p class="text-muted">Berawal dari sebuah ide sederhana, ALKA.COFFEE dirancang dengan visi
-                                menghadirkan kopi berkualitas yang dapat dinikmati semua kalangan. Perencanaan mencakup
-                                konsep, menu unik, dan pengalaman pelanggan yang berbeda.</p>
-                        </div>
+                        <div class="timeline-year">2021</div>
+                        <div class="timeline-title">Mimpi di Balik Dapur</div>
+                        <p class="timeline-desc">Palantha lahir dari semangat dua sahabat yang bermimpi menyajikan
+                            sarapan berkualitas restoran dengan harga yang ramah di kantong. Modal awal hanya berupa
+                            peralatan sederhana dan satu resep rahasia yang hingga kini menjadi andalan.</p>
                     </div>
                 </li>
+                <!-- 2022 -->
                 <li class="timeline-inverted">
-                    <div class="timeline-image"><img class="rounded-circle img-fluid"
-                            src="{{ asset('assets-general/assets/img/about/2.jpg') }}" alt="..." /></div>
+                    <div class="timeline-img-wrap">
+                        <img src="{{ asset('assets-general/assets/img/about/2.jpg') }}" alt="2022" />
+                    </div>
                     <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4>March 2011</h4>
-                            <h4 class="subheading">Merangkai Persiapan</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <p class="text-muted">Dalam tahap ini, seluruh kebutuhan seperti peralatan, bahan baku, dan
-                                desain interior dihitung dengan cermat. ALKA.COFFEE memanfaatkan dana dari sumber
-                                pribadi dan dukungan komunitas.</p>
-                        </div>
+                        <div class="timeline-year">2022</div>
+                        <div class="timeline-title">Membuka Pintu Pertama</div>
+                        <p class="timeline-desc">Setelah setahun mempersiapkan segalanya, Palantha Breakfast & Cafe
+                            resmi membuka gerai pertama di pusat kota. Antusiasme warga sangat tinggi — di hari pertama,
+                            semua menu habis terjual dalam tiga jam.</p>
                     </div>
                 </li>
+                <!-- 2023 -->
                 <li>
-                    <div class="timeline-image"><img class="rounded-circle img-fluid"
-                            src="{{ asset('assets-general/assets/img/about/3.jpg') }}" alt="..." /></div>
+                    <div class="timeline-img-wrap">
+                        <img src="{{ asset('assets-general/assets/img/about/3.jpg') }}" alt="2023" />
+                    </div>
                     <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4>December 2015</h4>
-                            <h4 class="subheading">Survei dan Pemilihan Lokasi</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <p class="text-muted">Setelah melakukan survei di berbagai tempat, akhirnya dipilih lokasi
-                                yang strategis dan mudah diakses. Tempat ini dirancang untuk menciptakan suasana nyaman
-                                bagi pelanggan, menjadi rumah bagi pecinta kopi.</p>
-                        </div>
+                        <div class="timeline-year">2023</div>
+                        <div class="timeline-title">Tumbuh Bersama Pelanggan</div>
+                        <p class="timeline-desc">Berkat kepercayaan pelanggan setia, Palantha berhasil memperluas
+                            kapasitas tempat duduk, menambahkan menu baru berbasis feedback pelanggan, dan membangun
+                            sistem pemesanan digital yang memudahkan pengunjung.</p>
                     </div>
                 </li>
+                <!-- 2024 -->
                 <li class="timeline-inverted">
-                    <div class="timeline-image"><img class="rounded-circle img-fluid"
-                            src="{{ asset('assets-general/assets/img/about/4.jpg') }}" alt="..." /></div>
+                    <div class="timeline-img-wrap">
+                        <img src="{{ asset('assets-general/assets/img/about/4.jpg') }}" alt="2024" />
+                    </div>
                     <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4>July 2020</h4>
-                            <h4 class="subheading">Grand Opening – Mulai Melayani Pelanggan</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <p class="text-muted">ALKA.COFFEE resmi dibuka! Dengan antusiasme besar, kami mulai
-                                menyajikan kopi terbaik dan memberikan pelayanan hangat kepada setiap pelanggan yang
-                                datang.</p>
-                        </div>
+                        <div class="timeline-year">2024 – Sekarang</div>
+                        <div class="timeline-title">Inovasi Tanpa Henti</div>
+                        <p class="timeline-desc">Memasuki tahun keempat, Palantha terus berinovasi dengan menghadirkan
+                            menu seasonal, program loyalitas pelanggan, dan rencana ekspansi ke kota-kota lain.
+                            Perjalanan kami baru saja dimulai.</p>
                     </div>
                 </li>
+                <!-- Be Part -->
                 <li>
-                    <div class="timeline-image"><img class="rounded-circle img-fluid"
-                            src="{{ asset('assets-general/assets/img/about/5.jpg') }}" alt="..." /></div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4>December 2015</h4>
-                            <h4 class="subheading">Perkembangan dan Ekspansi</h4>
+                    <div class="timeline-img-wrap">
+                        <div class="timeline-img-wrap last-item" style="width:90px; height:90px;">
+                            <h4>Be Part<br>Of Our<br>Story!</h4>
                         </div>
-                        <div class="timeline-body">
-                            <p class="text-muted">Seiring waktu, ALKA.COFFEE terus berkembang. Dengan bertambahnya
-                                cabang, kami kini melayani lebih banyak pelanggan dan tetap berkomitmen pada kualitas
-                                rasa serta suasana yang menyenangkan.</p>
-                        </div>
-                    </div>
-                </li>
-                <li class="timeline-inverted">
-                    <div class="timeline-image">
-                        <h4>
-                            Be Part
-                            <br />
-                            Of Our
-                            <br />
-                            Story!
-                        </h4>
                     </div>
                 </li>
             </ul>
         </div>
     </section>
-    <!-- Team-->
-    <section class="page-section bg-light" id="team">
+
+    <section class="page-section" id="team">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Our Amazing Development Team</h2>
-                <h3 class="section-subheading text-muted">"Dedikasi kami, kepuasan Anda."</h3>
+                <h2 class="section-heading">Tim Pengembang</h2>
+                <div class="section-divider" style="background: var(--hijau-accent);"></div>
+                <p class="section-subheading">"Dedikasi kami, kepuasan Anda."</p>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-4">
-                    <div class="team-member text-center">
-                        <img class="mx-auto rounded-circle" src="{{ asset('assets-general/assets/img/team/1.jpg') }}"
-                            alt="..." />
+
+            <div class="row justify-content-center g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="team-card">
+                        <div class="team-img-wrap">
+                            <img src="{{ asset('assets-general/assets/img/team/1.jpg') }}" alt="Nuraisyah" />
+                        </div>
                         <h4>Nuraisyah</h4>
-                        <p class="text-muted">2357301097</p>
-                        {{-- <a class="btn btn-dark btn-social mx-2" href="#!"
-                            aria-label="Aisyah Anand Twitter Profile"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!"
-                            aria-label="Aisyah Anand Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!"
-                            aria-label="Aisyah Anand LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a> --}}
+                        <p class="nim">2357301097</p>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="team-member text-center">
-                        <img class="mx-auto rounded-circle" src="{{ asset('assets-general/assets/img/team/2.jpg') }}"
-                            alt="..." />
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="team-card">
+                        <div class="team-img-wrap">
+                            <img src="{{ asset('assets-general/assets/img/team/2.jpg') }}" alt="Nurul Aiza" />
+                        </div>
                         <h4>Nurul Aiza</h4>
-                        <p class="text-muted">2357301098</p>
-                        {{-- <a class="btn btn-dark btn-social mx-2" href="#!"
-                            aria-label="Iza Petersen Twitter Profile"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!"
-                            aria-label="Iza Petersen Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!"
-                            aria-label="Iza Petersen LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a> --}}
+                        <p class="nim">2357301098</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="team-card">
+                        <div class="team-img-wrap">
+                            <img src="{{ asset('assets-general/assets/img/team/3.jpg') }}" alt="Miyako" />
+                        </div>
+                        <h4>Anlisa Elekda Nainggolan</h4>
+                        <p class="nim">2357301018</p>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <p class="large text-muted">
-                        ALKA.COFFEE, lebih dari sekadar kopi, menghadirkan cita rasa dan kehangatan
-                        dalam setiap cangkir yang penuh dengan cerita.
-                    </p>
-                </div>
-            </div>
+
+            <p class="team-tagline text-center">
+                Palantha Breakfast & Cafe — lebih dari sekadar tempat makan, kami menghadirkan momen berharga dalam
+                setiap suapan dan tegukan.
+            </p>
         </div>
     </section>
-    <!-- Clients-->
-    {{-- <div class="py-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-3 col-sm-6 my-3">
-                    <a href="#!"><img class="img-fluid img-brand d-block mx-auto"
-                            src="{{ asset('assets-general/assets/img/logos/microsoft.svg') }}" alt="..."
-                            aria-label="Microsoft Logo" /></a>
-                </div>
-                <div class="col-md-3 col-sm-6 my-3">
-                    <a href="#!"><img class="img-fluid img-brand d-block mx-auto"
-                            src="{{ asset('assets-general/assets/img/logos/google.svg') }}" alt="..."
-                            aria-label="Google Logo" /></a>
-                </div>
-                <div class="col-md-3 col-sm-6 my-3">
-                    <a href="#!"><img class="img-fluid img-brand d-block mx-auto"
-                            src="{{ asset('assets-general/assets/img/logos/facebook.svg') }}" alt="..."
-                            aria-label="Facebook Logo" /></a>
-                </div>
-                <div class="col-md-3 col-sm-6 my-3">
-                    <a href="#!"><img class="img-fluid img-brand d-block mx-auto"
-                            src="{{ asset('assets-general/assets/img/logos/ibm.svg') }}" alt="..."
-                            aria-label="IBM Logo" /></a>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-    <!-- Location-->
+
+    <!-- ===== LOCATION ===== -->
     <section class="page-section" id="location">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Our Location</h2>
-                <h3 class="section-subheading text-primary">Jl. Cut Nyak Dien - Pekanbaru, Riau - Belakang Perpustakaan
-                    Wilayah Soeman HS</h3>
-            </div>
-            <!-- * * * * * * * * * * * * * * *-->
-            <!-- * * SB Forms Contact Form * *-->
-            <!-- * * * * * * * * * * * * * * *-->
-            <!-- This form is pre-integrated with SB Forms.-->
-            <!-- To make this form functional, sign up at-->
-            <!-- https://startbootstrap.com/solution/contact-forms-->
-            <!-- to get an API token!-->
-            {{-- <form id="contactForm" data-sb-form-api-token="API_TOKEN">
-                    <div class="row align-items-stretch mb-5">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <!-- Name input-->
-                                <input class="form-control" id="name" type="text" placeholder="Your Name *" data-sb-validations="required" />
-                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
-                            </div>
-                            <div class="form-group">
-                                <!-- Email address input-->
-                                <input class="form-control" id="email" type="email" placeholder="Your Email *" data-sb-validations="required,email" />
-                                <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
-                            </div>
-                            <div class="form-group mb-md-0">
-                                <!-- Phone number input-->
-                                <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" data-sb-validations="required" />
-                                <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group form-group-textarea mb-md-0">
-                                <!-- Message input-->
-                                <textarea class="form-control" id="message" placeholder="Your Message *" data-sb-validations="required"></textarea>
-                                <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Submit success message-->
-                    <!---->
-                    <!-- This is what your users will see when the form-->
-                    <!-- has successfully submitted-->
-                    <div class="d-none" id="submitSuccessMessage">
-                        <div class="text-center text-white mb-3">
-                            <div class="fw-bolder">Form submission successful!</div>
-                            To activate this form, sign up at
-                            <br />
-                            <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                        </div>
-                    </div>
-                    <!-- Submit error message-->
-                    <!---->
-                    <!-- This is what your users will see when there is-->
-                    <!-- an error submitting the form-->
-                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
-                    <!-- Submit Button-->
-                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Send Message</button></div>
-                </form> --}}
-
-            <!-- Tambahkan Peta -->
-            <div class="row">
-                <div class="col-md-12 px-0">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d498.70687228558177!2d101.44519103699166!3d0.5184555931266466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d5ac03387a29a1%3A0x75413a89cc09bf6d!2sJl.%20Cut%20Nyak%20Dhien%2C%20Kota%20Pekanbaru%2C%20Riau%2028156!5e0!3m2!1sid!2sid!4v1733666490762!5m2!1sid!2sid"
-                        width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
+                <h2 class="section-heading">Lokasi Kami</h2>
+                <div class="section-divider"></div>
+                <div class="location-address">
+                    <i class="fas fa-location-dot"></i>
+                    <span>Jalan Kartika Sari Kelurahan Sri Meranti, Umban Sari, Kota Pekanbaru, Riau 28261</span>
                 </div>
             </div>
+            <div class="map-wrap">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.6220455132157!2d101.41321037496482!3d0.5683228994261251!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d5aba250c5e3d1%3A0x784c2a84de2cf426!2sPalantha%20Breakfast%20%26%20Cafe!5e0!3m2!1sid!2sid!4v1776448210100!5m2!1sid!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
     </section>
-    <!-- Footer-->
-    <footer class="footer py-4">
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
         <div class="container">
             <div class="row align-items-center">
-                <!-- Kolom 1: Copyright -->
-                <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2023</div>
-
-                <!-- Kolom 2: Ikon Media Sosial -->
-                <div class="col-lg-4 my-3 my-lg-0">
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i
-                            class="fab fa-twitter"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i
-                            class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i
-                            class="fab fa-linkedin-in"></i></a>
+                <div class="col-lg-4">
+                    <p class="copy">© 2024 Palantha Breakfast & Cafe. All rights reserved.</p>
                 </div>
-
-                <!-- Kolom 3: Privacy & Terms -->
+                <div class="col-lg-4 text-center my-2 my-lg-0">
+                    <a href="#!" class="social-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#!" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#!" class="social-btn"><i class="fab fa-tiktok"></i></a>
+                </div>
                 <div class="col-lg-4 text-lg-end">
-                    <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
-                    <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
+                    <a href="#!" class="footer-link">Kebijakan Privasi</a>
+                    <a href="#!" class="footer-link">Syarat & Ketentuan</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Portfolio Modals-->
-    <!-- Portfolio item 1 modal popup-->
-    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                {{-- <div class="close-modal" data-bs-dismiss="modal">
-                    <img src="{{ asset('assets-general/assets/img/close-icon.svg') }}" alt="Close modal" />
-                </div> --}}
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-12">
-                            <div class="modal-body d-flex align-items-center">
-                                <!-- Gambar produk -->
-                                <div class="modal-image">
-                                    <img class="img-fluid"
-                                        src="{{ asset('assets-general/assets/img/portfolio/1.png') }}"
-                                        alt="Matcha Latte" width="400" height="auto">
-                                </div>
-                                <!-- Detail produk -->
-                                <div class="modal-details ms-4">
-                                    <h2 class="text-uppercase">Matcha Latte</h2>
-                                    <p class="item-intro text-muted">Non-Coffee</p>
-                                    <p>Kombinasi susu segar dengan bubuk matcha premium, menghasilkan rasa manis dan
-                                        sedikit pahit yang seimbang.</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Harga:</strong>
-                                            Rp 30.000,00
-                                        </li>
-                                        <li>
-                                            <strong>Promo:</strong>
-                                            Diskon 10% setiap pembelian 2 cup.
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal"
-                                        type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Close Product
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Portfolio item 2 modal popup-->
-    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                {{-- <div class="close-modal" data-bs-dismiss="modal">
-                    <img src="{{ asset('assets-general/assets/img/close-icon.svg') }}" alt="Close modal" />
-                </div> --}}
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-12">
-                            <div class="modal-body d-flex align-items-center">
-                                <div class="modal-image">
-                                    <img class="img-fluid"
-                                        src="{{ asset('assets-general/assets/img/portfolio/2.png') }}"
-                                        alt="Caramel Macchiato">
-                                </div>
-                                <div class="modal-details ms-4">
-                                    <h2 class="text-uppercase">Caramel Macchiato</h2>
-                                    <p class="item-intro text-muted">Coffee</p>
-                                    <p>Kopi espresso kuat dengan tambahan susu lembut dan sirup caramel manis.</p>
-                                    <ul class="list-inline">
-                                        <li><strong>Harga:</strong> Rp 35.000,00</li>
-                                        <li><strong>Promo:</strong> Gratis topping ekstra caramel untuk pembelian hari
-                                            Senin.</li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal"
-                                        type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Close Product
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Portfolio item 3 modal popup -->
-    <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                {{-- <div class="close-modal" data-bs-dismiss="modal">
-                    <img src="{{ asset('assets-general/assets/img/close-icon.svg') }}" alt="Close modal" />
-                </div> --}}
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-12">
-                            <div class="modal-body d-flex align-items-center">
-                                <div class="modal-image">
-                                    <img class="img-fluid"
-                                        src="{{ asset('assets-general/assets/img/portfolio/3.png') }}"
-                                        alt="Hazelnut Latte">
-                                </div>
-                                <div class="modal-details ms-4">
-                                    <h2 class="text-uppercase">Hazelnut Latte</h2>
-                                    <p class="item-intro text-muted">Coffee</p>
-                                    <p>Susu lembut dengan aroma kacang hazelnut yang khas dan sentuhan espresso.</p>
-                                    <ul class="list-inline">
-                                        <li><strong>Harga:</strong> Rp 33.000,00</li>
-                                        <li><strong>Promo:</strong> Buy 1 Get 1 pada hari Jumat.</li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal"
-                                        type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Close Product
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Portfolio item 4 modal popup -->
-    <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                {{-- <div class="close-modal" data-bs-dismiss="modal">
-                    <img src="{{ asset('assets-general/assets/img/close-icon.svg') }}" alt="Close modal" />
-                </div> --}}
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-12">
-                            <div class="modal-body d-flex align-items-center">
-                                <div class="modal-image">
-                                    <img class="img-fluid"
-                                        src="{{ asset('assets-general/assets/img/portfolio/4.png') }}"
-                                        alt="Vanilla Latte">
-                                </div>
-                                <div class="modal-details ms-4">
-                                    <h2 class="text-uppercase">Vanilla Latte</h2>
-                                    <p class="item-intro text-muted">Coffee</p>
-                                    <p>Espresso halus dengan susu segar dan sentuhan manis vanila alami.</p>
-                                    <ul class="list-inline">
-                                        <li><strong>Harga:</strong> Rp 32.000,00</li>
-                                        <li><strong>Promo:</strong> Diskon 15% untuk pembelian 3 cup atau lebih.</li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal"
-                                        type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Close Product
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Portfolio item 5 modal popup -->
-    <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                {{-- <div class="close-modal" data-bs-dismiss="modal">
-                    <img src="{{ asset('assets-general/assets/img/close-icon.svg') }}" alt="Close modal" />
-                </div> --}}
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-12">
-                            <div class="modal-body d-flex align-items-center">
-                                <div class="modal-image">
-                                    <img class="img-fluid"
-                                        src="{{ asset('assets-general/assets/img/portfolio/5.png') }}"
-                                        alt="Butterscotch Coffee">
-                                </div>
-                                <div class="modal-details ms-4">
-                                    <h2 class="text-uppercase">Butterscotch Coffee</h2>
-                                    <p class="item-intro text-muted">Coffee</p>
-                                    <p>Kombinasi espresso dengan sirup butterscotch manis dan susu creamy.</p>
-                                    <ul class="list-inline">
-                                        <li><strong>Harga:</strong> Rp 35.000,00</li>
-                                        <li><strong>Promo:</strong> Dapatkan cup reusable gratis untuk pembelian di atas
-                                            Rp 100.000.</li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal"
-                                        type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Close Product
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Portfolio item 6 modal popup -->
-    <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                {{-- <div class="close-modal" data-bs-dismiss="modal">
-                    <img src="{{ asset('assets-general/assets/img/close-icon.svg') }}" alt="Close modal" />
-                </div> --}}
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-12">
-                            <div class="modal-body d-flex align-items-center">
-                                <div class="modal-image">
-                                    <img class="img-fluid"
-                                        src="{{ asset('assets-general/assets/img/portfolio/6.png') }}"
-                                        alt="Chocolate Frappe">
-                                </div>
-                                <div class="modal-details ms-4">
-                                    <h2 class="text-uppercase">Chocolate Frappe</h2>
-                                    <p class="item-intro text-muted">Non Coffee</p>
-                                    <p>Minuman cokelat dingin dengan tekstur lembut, dibuat dari cokelat Belgia
-                                        berkualitas tinggi.</p>
-                                    <ul class="list-inline">
-                                        <li><strong>Harga:</strong> Rp 28.000,00</li>
-                                        <li><strong>Promo:</strong> Tambah Rp 5.000 untuk whipped cream ekstra.</li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal"
-                                        type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Close Product
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap core JS-->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="{{ asset('assets-general/js/scripts.js') }}"></script>
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <!-- * *                               SB Forms JS                               * *-->
-    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('mainNav');
+            if (window.scrollY > 60) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 
 </html>

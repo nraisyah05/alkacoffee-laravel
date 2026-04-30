@@ -22842,7 +22842,7 @@ textarea.form-control-lg {
     overflow-y: auto;
     width: 100%;
     transition: max-width 0.1s;
-    background-color: #251904 !important;
+    background-color: #1F5E4A !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -22877,8 +22877,8 @@ textarea.form-control-lg {
 }
 
 .sidebar .nav-item .nav-link:hover {
-    color: #b79f8368 ;
-    background-color: #b79f8368 ;
+    color: #ffffff ;
+    background-color: #2F7A61 ;
 }
 
 .sidebar .nav-link + .multi-level {

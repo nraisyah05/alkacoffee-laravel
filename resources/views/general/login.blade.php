@@ -1770,7 +1770,7 @@
                                 </div>
                                 <div class="d-grid">
                                     <button type="submit" class="btn btn-gray-800">Login</button>
-                                    <a href="{{ route('redirect.google') }}" class="btn btn-secondary w-100 mt-3">
+                                    <a href="{{ route('redirect.google') }}" class="btn btn-info w-100 mt-3">
                                         Login with Google </a>
                                 </div>
                             </form>

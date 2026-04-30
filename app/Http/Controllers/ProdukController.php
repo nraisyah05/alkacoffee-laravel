@@ -18,6 +18,7 @@ class ProdukController extends Controller
 
         //Gunakan scope filter untuk memproses query
         $pageData['dataProduk'] = Produk::filter($request, $filterableColumns, $searchableColumns)
+            ->latest()
             ->paginate(5)
             ->withQueryString();
 

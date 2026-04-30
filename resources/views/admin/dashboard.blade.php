@@ -1,374 +1,287 @@
 @extends('layouts.admin.app')
+
 @section('content')
-    {{-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
-        <div class="btn-toolbar dropdown">
-            <button class="btn btn-dark btn-sm me-2 dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-                <span class="fas fa-plus me-2"></span>New Task
-            </button>
-            <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-0">
-                <a class="dropdown-item fw-normal rounded-top" href="#"><span class="fas fa-tasks"></span>New Task</a>
-                <a class="dropdown-item fw-normal" href="#"><span class="fas fa-cloud-upload-alt"></span>Upload
-                    Files</a>
-                <a class="dropdown-item fw-normal" href="#"><span class="fas fa-user-shield"></span>Preview
-                    Security</a>
-                <div role="separator" class="dropdown-divider my-0"></div>
-                <a class="dropdown-item fw-normal rounded-bottom" href="#"><span
-                        class="fas fa-rocket text-danger"></span>Upgrade to Pro</a>
-            </div>
-        </div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-outline-primary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-primary">Export</button>
-        </div>
-    </div> --}}
+<div class="container-fluid py-4">
 
-    <div class="container">
-        <div class="row">
-            <!-- Total Pelanggan Card -->
-            <div class="col-md-4">
-                <div class="card" style="background-color: #FFFFFF; border: none; border-radius: 15px;">
-                    <div class="card-body">
-                        <h6 style="color: #FFA726;">Total Pelanggan</h6>
-                        <h2 class="text-dark font-weight-bold">{{ $totalPelanggan }}</h2>
-                        <small style="color: #43A047;">↑ 20% sejak bulan lalu</small>
-                    </div>
-                </div>
-            </div>
+    {{-- ===== BARIS 1: STAT CARDS ===== --}}
+    <div class="row g-3 mb-4">
 
-            <!-- Total Users Card -->
-            <div class="col-md-4">
-                <div class="card" style="background-color: #FFFFFF; border: none; border-radius: 15px;">
-                    <div class="card-body">
-                        <h6 style="color: #FFA726;">Total Users</h6>
-                        <h2 class="text-dark font-weight-bold">{{ $totalUsers }}</h2>
-                        <small style="color: #43A047;">↑ 10% sejak bulan lalu</small>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Total Mitra Card -->
-            <div class="col-md-4">
-                <div class="card" style="background-color: #FFFFFF; border: none; border-radius: 15px;">
-                    <div class="card-body">
-                        <h6 style="color: #FFA726;">Total Mitra</h6>
-                        <h2 class="text-dark font-weight-bold">{{ $totalMitra }}</h2>
-                        <small style="color: #43A047;">↑ 8% sejak bulan lalu</small>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pelanggan terbaru -->
-            <div class="container mt-4">
-                <div class="card" style="background-color: #FFFFFF; border: none; border-radius: 15px;">
-                    <div class="card-body">
-                        <h6 style="color: #FFA726;">Data Pelanggan Terbaru</h6>
-                        @if ($pelangganTerbaru->isEmpty())
-                            <p class="text-muted">Belum ada pelanggan terbaru.</p>
-                        @else
-                            <ul class="list-group">
-                                @foreach ($pelangganTerbaru as $dataPelanggan)
-                                    <li class="list-group-item d-flex justify-content-between align-items-center"
-                                        style="border: none; background-color: #f9f9f9;">
-                                        <div>
-                                            <strong>{{ $dataPelanggan->first_name }}</strong>
-                                            <p class="mb-0 text-muted" style="font-size: 0.9em;">{{ $dataPelanggan->email }}
-                                            </p>
-                                        </div>
-                                        <span class="badge bg-primary" style="font-size: 0.8em;">
-                                            {{ \Carbon\Carbon::parse($dataPelanggan->created_at)->format('d M Y') }}
-                                        </span>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif
-                    </div>
-                </div>
-            </div>
-
-            <!-- Diagram Lingkaran dan Diagram Garis -->
-            <div class="container mt-4">
-                <div class="row">
-                    <!-- Diagram Lingkaran Persentase Aset -->
-                    <div class="col-md-6">
-                        <div class="card" style="background-color: #FFFFFF; border: none; border-radius: 15px;">
-                            <div class="card-body">
-                                <h6 style="color: #FFA726;">Persentase Kondisi Aset</h6>
-                                <div class="chart-container"
-                                    style="position: relative; width: 50%; max-width: 300px; margin: auto;">
-                                    <canvas id="assetChart"></canvas>
-                                </div>
-                            </div>
+        {{-- Pendapatan Hari Ini --}}
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100" style="border-radius:15px">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
+                            style="width:45px;height:45px;background:#fff3e0">
+                            <span style="font-size:20px">💰</span>
                         </div>
+                        <span class="text-muted" style="font-size:13px">Pendapatan Hari Ini</span>
                     </div>
-
-                    <!-- Diagram Pertumbuhan Pelanggan -->
-                    <div class="col-md-6">
-                        <div class="card" style="background-color: #FFFFFF; border: none; border-radius: 15px;">
-                            <div class="card-body">
-                                <h6 style="color: #FFA726;">Pertumbuhan Pelanggan per Bulan</h6>
-                                <div class="chart-container"
-                                    style="position: relative; width: 100%; max-width: 600px; margin: auto;">
-                                    <canvas id="growthChart"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Grafik Penambahan Pelanggan -->
-                    {{-- <div class="col-md-6">
-                        <div class="card" style="background-color: #FFFFFF; border: none; border-radius: 15px;">
-                            <div class="card-body">
-                                <h4 class="mb-4 text-muted">Grafik Penambahan Pelanggan Per Bulan</h4>
-                                <canvas id="pelangganChart" style="background-color: #001f3d;"></canvas>
-                            </div>
-                        </div>
-                    </div> --}}
-
-                    {{-- Produk Terbaru --}}
-                    <div class="container mt-4">
-                        <div class="card shadow-sm" style="border-radius: 15px; border: none;">
-                            <div class="card-body">
-                                <h6 class="fw-bold mb-3" style="color: #FFA726;">Produk Terbaru</h6>
-
-                                @if ($produkTerbaru->isEmpty())
-                                    <p class="text-muted text-center">Belum ada produk terbaru.</p>
-                                @else
-                                    <ul class="list-group list-group-flush">
-                                        @foreach ($produkTerbaru as $dataProduk)
-                                            <li class="list-group-item d-flex justify-content-between align-items-center py-3"
-                                                style="background-color: #f9f9f9; border: none;">
-                                                <div class="d-flex align-items-center">
-                                                    {{-- Product Image --}}
-                                                    <img src="{{ asset('storage/' . $dataProduk->gambar) }}"
-                                                        alt="Gambar {{ $dataProduk->nama_produk }}"
-                                                        style="width:80px; height:80px; object-fit:cover; border-radius:8px; margin-right:15px;">
-                                                    {{-- Product Info --}}
-                                                    <div>
-                                                        <strong class="d-block">{{ $dataProduk->nama_produk }}</strong>
-                                                        <small class="text-muted">Rp
-                                                            {{ number_format($dataProduk->harga, 0, ',', '.') }}</small>
-                                                    </div>
-                                                </div>
-
-                                                {{-- Date Badge --}}
-                                                <span class="badge bg-primary rounded-pill" style="font-size: 0.8em;">
-                                                    {{ \Carbon\Carbon::parse($dataProduk->created_at)->format('d M Y') }}
-                                                </span>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
-
+                    <h4 class="fw-bold mb-0">Rp {{ number_format($pendapatanHariIni, 0, ',', '.') }}</h4>
                 </div>
             </div>
         </div>
+
+        {{-- Produk Terjual Hari Ini --}}
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100" style="border-radius:15px">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
+                            style="width:45px;height:45px;background:#e8f5e9">
+                            <span style="font-size:20px">🛍️</span>
+                        </div>
+                        <span class="text-muted" style="font-size:13px">Produk Terjual Hari Ini</span>
+                    </div>
+                    <h4 class="fw-bold mb-0">{{ number_format($produkTerjualHariIni) }} item</h4>
+                </div>
+            </div>
+        </div>
+
+        {{-- Total Pelanggan --}}
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100" style="border-radius:15px">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
+                            style="width:45px;height:45px;background:#e3f2fd">
+                            <span style="font-size:20px">👥</span>
+                        </div>
+                        <span class="text-muted" style="font-size:13px">Total Pelanggan</span>
+                    </div>
+                    <h4 class="fw-bold mb-0">{{ number_format($totalPelanggan) }}</h4>
+                </div>
+            </div>
+        </div>
+
+        {{-- Total Users --}}
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100" style="border-radius:15px">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
+                            style="width:45px;height:45px;background:#fce4ec">
+                            <span style="font-size:20px">👤</span>
+                        </div>
+                        <span class="text-muted" style="font-size:13px">Total Users</span>
+                    </div>
+                    <h4 class="fw-bold mb-0">{{ number_format($totalUsers) }}</h4>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- Script untuk Chart -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        var ctx = document.getElementById('assetChart').getContext('2d');
-        var assetChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Aktif', 'Kadaluarsa', 'Maintenance'],
-                datasets: [{
-                    data: [
-                        {{ $dataAset['Aktif'] }},
-                        {{ $dataAset['Kadaluarsa'] }},
-                        {{ $dataAset['Maintenance'] }}
-                    ],
-                    backgroundColor: ['#4CAF50', '#FF5722', '#FFC107'],
-                    borderColor: ['#4CAF50', '#FF5722', '#FFC107'],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'bottom'
-                    }
-                }
-            }
-        });
-    </script>
+    {{-- ===== BARIS 2: GRAFIK PENJUALAN + TOP 5 TERLARIS ===== --}}
+    <div class="row g-3 mb-4">
 
-    {{-- script untuk diagram petumbuhan --}}
-    <script>
-        var growthCtx = document.getElementById('growthChart').getContext('2d');
-        var growthChart = new Chart(growthCtx, {
-            type: 'line',
-            data: {
-                labels: {!! json_encode(array_keys($dataPertumbuhanPelanggan->toArray())) !!},
-                datasets: [{
-                    label: 'Pertumbuhan Pelanggan',
-                    data: {!! json_encode(array_values($dataPertumbuhanPelanggan->toArray())) !!},
-                    borderColor: '#42A5F5',
-                    backgroundColor: 'rgba(66, 165, 245, 0.2)',
-                    borderWidth: 2,
-                    tension: 0.3, // Membuat garis lebih halus
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top'
-                    }
-                },
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Bulan'
-                        },
-                        ticks: {
-                            callback: function(value, index, ticks) {
-                                const bulanPanjang = [
-                                    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-                                    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
-                                ];
-                                const date = this.getLabelForValue(value); // Mengambil nilai dari label
-                                const [year, month] = date.split('-'); // Pecah format 'YYYY-MM'
-                                return bulanPanjang[parseInt(month) - 1] + ' ' +
-                                    year; // Format nama bulan + tahun
-                            }
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Jumlah Pelanggan'
-                        },
-                        beginAtZero: true
-                    }
-                }
+        {{-- Grafik Pertumbuhan Penjualan --}}
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm h-100" style="border-radius:15px">
+                <div class="card-body">
+                    <h6 class="fw-bold mb-3" style="color:#FFA726">
+                        📈 Pertumbuhan Penjualan (12 Bulan Terakhir)
+                    </h6>
+                    <canvas id="penjualanChart" style="max-height:300px"></canvas>
+                </div>
+            </div>
+        </div>
 
-            }
-        });
-    </script>
+        {{-- Top 5 Produk Terlaris --}}
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100" style="border-radius:15px">
+                <div class="card-body">
+                    <h6 class="fw-bold mb-3" style="color:#FFA726">
+                        🏆 Top 5 Terlaris Bulan Ini
+                    </h6>
 
-    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    @forelse ($produkTerlaris as $i => $produk)
+                        <div class="d-flex align-items-center mb-3">
+
+                            {{-- Nomor ranking --}}
+                            <div class="fw-bold me-2 text-center"
+                                style="width:24px;font-size:14px;color:{{ $i === 0 ? '#FFA726' : ($i === 1 ? '#9E9E9E' : ($i === 2 ? '#795548' : '#aaa')) }}">
+                                #{{ $i + 1 }}
+                            </div>
+
+                            {{-- Foto produk --}}
+                            <img src="{{ asset('storage/' . $produk->gambar) }}"
+                                style="width:45px;height:45px;object-fit:cover;border-radius:8px;margin-right:10px">
+
+                            {{-- Info --}}
+                            <div class="flex-grow-1">
+                                <div style="font-size:13px;font-weight:600">{{ $produk->nama_produk }}</div>
+                                <small class="text-muted">
+                                    {{ ucfirst($produk->kategori) }}
+                                </small>
+                            </div>
+
+                            {{-- Jumlah terjual --}}
+                            <span class="badge rounded-pill"
+                                style="background:#fff3e0;color:#FFA726;font-size:12px">
+                                {{ $produk->total_terjual }}x
+                            </span>
+
+                        </div>
+                    @empty
+                        <p class="text-muted text-center mt-4">Belum ada data penjualan bulan ini.</p>
+                    @endforelse
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {{-- ===== BARIS 3: PRODUK TERBARU + ASET + PERTUMBUHAN PELANGGAN ===== --}}
+    <div class="row g-3 mb-4">
+
+        {{-- Produk Terbaru --}}
+        <div class="col-md-5">
+            <div class="card border-0 shadow-sm h-100" style="border-radius:15px">
+                <div class="card-body">
+                    <h6 class="fw-bold mb-3" style="color:#FFA726">🆕 Produk Terbaru</h6>
+
+                    @forelse ($produkTerbaru as $p)
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="{{ asset('storage/' . $p->gambar) }}"
+                                style="width:50px;height:50px;object-fit:cover;border-radius:8px;margin-right:12px">
+                            <div class="flex-grow-1">
+                                <div style="font-size:13px;font-weight:600">{{ $p->nama_produk }}</div>
+                                <small class="text-muted">
+                                    Rp {{ number_format($p->harga, 0, ',', '.') }}
+                                    &bull; {{ ucfirst($p->kategori) }}
+                                </small>
+                            </div>
+                            <small class="text-muted">
+                                {{ \Carbon\Carbon::parse($p->created_at)->format('d M') }}
+                            </small>
+                        </div>
+                    @empty
+                        <p class="text-muted text-center">Belum ada produk.</p>
+                    @endforelse
+
+                </div>
+            </div>
+        </div>
+
+        {{-- Kondisi Aset --}}
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100" style="border-radius:15px">
+                <div class="card-body text-center">
+                    <h6 class="fw-bold mb-3" style="color:#FFA726">🗂️ Kondisi Aset</h6>
+                    <canvas id="assetChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        {{-- Pertumbuhan Pelanggan --}}
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100" style="border-radius:15px">
+                <div class="card-body">
+                    <h6 class="fw-bold mb-3" style="color:#FFA726">👥 Pertumbuhan Pelanggan</h6>
+                    <canvas id="growthChart" style="max-height:220px"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+@endsection
+
+@section('script')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    const pelangganData = @json($pelanggan_per_bulan);
+// ===== 1. GRAFIK PENJUALAN PER BULAN =====
+const penjualanData = @json($dataPenjualanBulan);
 
-    // Format Bulan-Tahun menjadi format yang lebih ringkas
-    const labels = pelangganData.map(item => {
-        const month = new Date(item.year, item.month - 1); // Mengambil bulan dari data dan mengonversinya ke format Date
-        const options = { year: 'numeric', month: 'short' }; // Format: "Jan 2024"
-        return month.toLocaleDateString('id-ID', options); // Menggunakan locale Indonesia
-    });
+const bulanLabels = Object.keys(penjualanData).map(b => {
+    const [year, month] = b.split('-')
+    const nama = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Ags","Sep","Okt","Nov","Des"]
+    return nama[parseInt(month) - 1] + ' ' + year
+})
 
-    const data = pelangganData.map(item => item.total);
+const penjualanValues = Object.values(penjualanData).map(v => v.total)
 
-    const ctx = document.getElementById('pelangganChart').getContext('2d');
-
-    const colorBasedOnTrend = (data) => {
-        const colors = [];
-        for (let i = 0; i < data.length; i++) {
-            if (i === 0) {
-                colors.push('rgba(0, 200, 83, 0.7)');
-            } else {
-                colors.push(data[i] > data[i - 1] ? 'rgba(0, 200, 83, 0.7)' : 'rgba(255, 82, 82, 0.7)');
-            }
-        }
-        return colors;
-    };
-
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Penambahan Pelanggan',
-                data: data,
-                borderColor: colorBasedOnTrend(data),
-                backgroundColor: 'rgba(0,0,0,0)',
-                fill: false,
-                borderWidth: 3,
-                pointBackgroundColor: colorBasedOnTrend(data),
-                pointBorderWidth: 2,
-                pointRadius: 5,
-                pointHoverRadius: 6,
-                tension: 0.3
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: {
-                        color: '#fff',
-                        font: {
-                            size: 14
-                        }
-                    }
-                },
-                tooltip: {
-                    mode: 'index',
-                    intersect: false,
-                    callbacks: {
-                        label: function(tooltipItem) {
-                            return Jumlah: ${tooltipItem.raw};
-                        }
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Bulan-Tahun',
-                        font: {
-                            size: 14
-                        },
-                        color: '#fff'
-                    },
-                    grid: {
-                        display: false
-                    },
-                    ticks: {
-                        color: '#fff',
-                        font: {
-                            size: 12
-                        }
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Jumlah Pelanggan',
-                        font: {
-                            size: 14
-                        },
-                        color: '#fff'
-                    },
-                    beginAtZero: true,
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.2)'
-                    },
-                    ticks: {
-                        color: '#fff',
-                        font: {
-                            size: 12
-                        }
-                    }
+new Chart(document.getElementById('penjualanChart'), {
+    type: 'bar',
+    data: {
+        labels: bulanLabels,
+        datasets: [{
+            label: 'Pendapatan (Rp)',
+            data: penjualanValues,
+            backgroundColor: 'rgba(255,167,38,0.7)',
+            borderColor: '#FFA726',
+            borderWidth: 2,
+            borderRadius: 6,
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    callback: val => 'Rp ' + val.toLocaleString('id-ID')
                 }
             }
         }
-    });
-});
-</script> --}}
+    }
+})
 
+// ===== 2. GRAFIK KONDISI ASET =====
+new Chart(document.getElementById('assetChart'), {
+    type: 'doughnut',
+    data: {
+        labels: ['Aktif', 'Kadaluarsa', 'Maintenance'],
+        datasets: [{
+            data: [
+                {{ $dataAset['Aktif'] }},
+                {{ $dataAset['Kadaluarsa'] }},
+                {{ $dataAset['Maintenance'] }}
+            ],
+            backgroundColor: ['#4CAF50', '#FF5722', '#FFC107'],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        cutout: '65%',
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 11 } } } }
+    }
+})
+
+// ===== 3. GRAFIK PERTUMBUHAN PELANGGAN =====
+const pelangganData = @json($dataPertumbuhanPelanggan);
+
+const pelangganLabels = Object.keys(pelangganData).map(b => {
+    const [year, month] = b.split('-')
+    const nama = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Ags","Sep","Okt","Nov","Des"]
+    return nama[parseInt(month) - 1] + ' ' + year
+})
+
+new Chart(document.getElementById('growthChart'), {
+    type: 'line',
+    data: {
+        labels: pelangganLabels,
+        datasets: [{
+            label: 'Pelanggan Baru',
+            data: Object.values(pelangganData),
+            borderColor: '#42A5F5',
+            backgroundColor: 'rgba(66,165,245,0.15)',
+            borderWidth: 2,
+            tension: 0.4,
+            fill: true,
+            pointRadius: 4,
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+    }
+})
+</script>
 @endsection

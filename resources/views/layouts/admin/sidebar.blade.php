@@ -84,7 +84,7 @@
                 </a>
             </li>
             {{-- pelanggan --}}
-            <li class="nav-item {{ request()->is('pelanggan*') ? 'active' : '' }}">
+            {{-- <li class="nav-item {{ request()->is('pelanggan*') ? 'active' : '' }}">
                 <a href="{{ route('pelanggan.list') }}" class="nav-link">
                     <span class="sidebar-icon">
                         <svg class="icon icon-xs me-2" fill="none" stroke-width="2" stroke="currentColor"
@@ -96,9 +96,9 @@
                     </span>
                     <span class="sidebar-text">Pelanggan</span>
                 </a>
-            </li>
+            </li> --}}
             {{-- asset --}}
-            <li class="nav-item {{ request()->is('asset*') ? 'active' : '' }}">
+            {{-- <li class="nav-item {{ request()->is('asset*') ? 'active' : '' }}">
                 <a href="{{ route('asset.list') }}" class="nav-link">
                     <span class="sidebar-icon">
                         <svg class="icon icon-xs me-2" fill="none" stroke-width="2" stroke="currentColor"
@@ -110,7 +110,7 @@
                     </span>
                     <span class="sidebar-text">Asset</span>
                 </a>
-            </li>
+            </li> --}}
             {{-- produk --}}
             <li class="nav-item {{ request()->is('produk*') ? 'active' : '' }}">
                 <a href="{{ route('produk.list') }}" class="nav-link">
@@ -137,7 +137,7 @@
                 </a>
             </li> --}}
             {{-- kasir --}}
-            <li class="nav-item {{ request()->is('kasir*') ? 'active' : '' }}">
+            {{-- <li class="nav-item {{ request()->is('kasir*') ? 'active' : '' }}">
                 <a href="{{ route('kasir.list') }}" class="nav-link">
                     <span class="sidebar-icon">
                         <svg class="icon icon-xs me-2" fill="none" stroke-width="1.5" stroke="currentColor"
@@ -149,8 +149,8 @@
                     </span>
                     <span class="sidebar-text">Kasir</span>
                 </a>
-            </li>
-            <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
+            </li> --}}
+            <li role="separator" class="dropdown-divider mt-2 mb-2 border-white"></li>
 
             {{-- pembayaran --}}
             <li class="nav-item {{ request()->is('pembayaran*') ? 'active' : '' }}">
@@ -162,7 +162,7 @@
                                 d="M2.25 6.75h19.5m-19.5 3h19.5m-19.5 3h19.5m-19.5 3h19.5"></path>
                         </svg>
                     </span>
-                    <span class="sidebar-text">Pembayaran</span>
+                    <span class="sidebar-text">Kasir</span>
                 </a>
             </li>
         </ul>
