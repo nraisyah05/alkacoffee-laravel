@@ -35,6 +35,7 @@ class HomeController extends Controller
                 'produk.gambar',
                 'produk.kategori',
                 'produk.deskripsi',
+                'produk.stok', 
                 'produk.created_at',
                 'produk.updated_at'
             )
