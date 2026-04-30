@@ -27,31 +27,24 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        // Validate the incoming request
         $validated = $request->validate([
-            'email' => 'required|email', // Ensure valid email format
+            'username' => 'required',
             'password' => 'required|min:3',
         ], [
-            'email.required' => 'Email wajib diisi.',
-            'email.email' => 'Format email tidak valid.',
+            'username.required' => 'Username wajib diisi.',
             'password.required' => 'Password wajib diisi.',
             'password.min' => 'Password minimal terdiri dari 3 karakter.',
         ]);
 
-        // Find the user by email
-        $user = User::where('email', $validated['email'])->first();
+        $user = User::where('username', $validated['username'])->first();
 
-        // Check if user exists and the password matches
         if ($user && Hash::check($validated['password'], $user->password)) {
-            // Authenticate the user
             Auth::login($user);
-
             return redirect()->route('dashboard')->with('success', 'Login berhasil!');
         }
 
-        // Redirect back with error if login fails
         return redirect()->route('login.admin')->withErrors([
-            'login' => 'Email atau password salah.',
+            'login' => 'Username atau password salah.',
         ]);
     }
 

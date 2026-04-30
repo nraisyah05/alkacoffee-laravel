@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
-use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB; // Penting untuk query database
 
@@ -35,7 +34,7 @@ class HomeController extends Controller
                 'produk.gambar',
                 'produk.kategori',
                 'produk.deskripsi',
-                'produk.stok', 
+                'produk.stok',
                 'produk.created_at',
                 'produk.updated_at'
             )
