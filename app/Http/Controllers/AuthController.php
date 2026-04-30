@@ -36,7 +36,7 @@ class AuthController extends Controller
             'password.min' => 'Password minimal terdiri dari 3 karakter.',
         ]);
 
-        $user = User::where('username', $validated['username'])->first();
+        $user = User::where('email', $validated['username'])->first();
 
         if ($user && Hash::check($validated['password'], $user->password)) {
             Auth::login($user);
