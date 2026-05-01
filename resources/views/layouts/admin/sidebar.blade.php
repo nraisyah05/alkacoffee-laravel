@@ -1,12 +1,12 @@
 {{-- start sidebar --}}
 <nav id="sidebarMenu" class="sidebar d-lg-block bg-gray-800 text-white collapse" data-simplebar>
     {{-- logo kopi starling --}}
-    <img src="{{ asset('assets-admin/img/brand/ALKA.LOGO.png') }}"
+    <img src="{{ asset('assets-admin/img/brand/logo.jpg') }}"
         class="card-img-top rounded-circle border-white d-block mx-auto mt-3" alt="Bonnie Green"
         style="width: 120px; height: 120px;">
     <a href="{{ route('home') }}"
         style="font-size: 24px; font-weight: bold; color: white; text-decoration: none; padding: 10px; display: inline-block; margin-left: 40px;">
-        ALKA.COFFEE
+        PALANTHA BRAKFAST & CAFE
     </a>
     <div class="sidebar-inner px-4 pt-3">
         <div
