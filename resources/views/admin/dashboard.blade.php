@@ -94,97 +94,63 @@
                     <h6 class="fw-bold mb-3" style="color:#FFA726">
                         🏆 Top 5 Terlaris Bulan Ini
                     </h6>
-
                     @forelse ($produkTerlaris as $i => $produk)
                         <div class="d-flex align-items-center mb-3">
-
-                            {{-- Nomor ranking --}}
                             <div class="fw-bold me-2 text-center"
                                 style="width:24px;font-size:14px;color:{{ $i === 0 ? '#FFA726' : ($i === 1 ? '#9E9E9E' : ($i === 2 ? '#795548' : '#aaa')) }}">
                                 #{{ $i + 1 }}
                             </div>
-
-                            {{-- Foto produk --}}
                             <img src="{{ asset('storage/' . $produk->gambar) }}"
                                 style="width:45px;height:45px;object-fit:cover;border-radius:8px;margin-right:10px">
-
-                            {{-- Info --}}
                             <div class="flex-grow-1">
                                 <div style="font-size:13px;font-weight:600">{{ $produk->nama_produk }}</div>
-                                <small class="text-muted">
-                                    {{ ucfirst($produk->kategori) }}
-                                </small>
+                                <small class="text-muted">{{ ucfirst($produk->kategori) }}</small>
                             </div>
-
-                            {{-- Jumlah terjual --}}
                             <span class="badge rounded-pill"
                                 style="background:#fff3e0;color:#FFA726;font-size:12px">
                                 {{ $produk->total_terjual }}x
                             </span>
-
                         </div>
                     @empty
                         <p class="text-muted text-center mt-4">Belum ada data penjualan bulan ini.</p>
                     @endforelse
-
                 </div>
             </div>
         </div>
 
     </div>
 
-    {{-- ===== BARIS 3: PRODUK TERBARU + ASET + PERTUMBUHAN PELANGGAN ===== --}}
+    {{-- ===== BARIS 3: PRODUK TERBARU ===== --}}
     <div class="row g-3 mb-4">
-
-        {{-- Produk Terbaru --}}
-        <div class="col-md-5">
-            <div class="card border-0 shadow-sm h-100" style="border-radius:15px">
+        <div class="col-md-12">
+            <div class="card border-0 shadow-sm" style="border-radius:15px">
                 <div class="card-body">
                     <h6 class="fw-bold mb-3" style="color:#FFA726">🆕 Produk Terbaru</h6>
-
-                    @forelse ($produkTerbaru as $p)
-                        <div class="d-flex align-items-center mb-3">
-                            <img src="{{ asset('storage/' . $p->gambar) }}"
-                                style="width:50px;height:50px;object-fit:cover;border-radius:8px;margin-right:12px">
-                            <div class="flex-grow-1">
-                                <div style="font-size:13px;font-weight:600">{{ $p->nama_produk }}</div>
-                                <small class="text-muted">
-                                    Rp {{ number_format($p->harga, 0, ',', '.') }}
-                                    &bull; {{ ucfirst($p->kategori) }}
-                                </small>
+                    <div class="row">
+                        @forelse ($produkTerbaru as $p)
+                            <div class="col-md-4 mb-3">
+                                <div class="d-flex align-items-center">
+                                    <img src="{{ asset('storage/' . $p->gambar) }}"
+                                        style="width:50px;height:50px;object-fit:cover;border-radius:8px;margin-right:12px">
+                                    <div class="flex-grow-1">
+                                        <div style="font-size:13px;font-weight:600">{{ $p->nama_produk }}</div>
+                                        <small class="text-muted">
+                                            Rp {{ number_format($p->harga, 0, ',', '.') }}
+                                            &bull; {{ ucfirst($p->kategori) }}
+                                        </small>
+                                    </div>
+                                    <small class="text-muted">
+                                        {{ \Carbon\Carbon::parse($p->created_at)->format('d M') }}
+                                    </small>
+                                </div>
                             </div>
-                            <small class="text-muted">
-                                {{ \Carbon\Carbon::parse($p->created_at)->format('d M') }}
-                            </small>
-                        </div>
-                    @empty
-                        <p class="text-muted text-center">Belum ada produk.</p>
-                    @endforelse
-
+                        @empty
+                            <p class="text-muted text-center">Belum ada produk.</p>
+                        @endforelse
+                    </div>
                 </div>
             </div>
         </div>
-
-        {{-- Kondisi Aset --}}
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm h-100" style="border-radius:15px">
-                <div class="card-body text-center">
-                    <h6 class="fw-bold mb-3" style="color:#FFA726">🗂️ Kondisi Aset</h6>
-                    <canvas id="assetChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        {{-- Pertumbuhan Pelanggan --}}
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm h-100" style="border-radius:15px">
-                <div class="card-body">
-                    <h6 class="fw-bold mb-3" style="color:#FFA726">👥 Pertumbuhan Pelanggan</h6>
-                    <canvas id="growthChart" style="max-height:220px"></canvas>
-                </div>
-            </div>
-        </div>
-
     </div>
 
 </div>
@@ -193,7 +159,6 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-// ===== 1. GRAFIK PENJUALAN PER BULAN =====
 const penjualanData = @json($dataPenjualanBulan);
 
 const bulanLabels = Object.keys(penjualanData).map(b => {
@@ -228,59 +193,6 @@ new Chart(document.getElementById('penjualanChart'), {
                 }
             }
         }
-    }
-})
-
-// ===== 2. GRAFIK KONDISI ASET =====
-new Chart(document.getElementById('assetChart'), {
-    type: 'doughnut',
-    data: {
-        labels: ['Aktif', 'Kadaluarsa', 'Maintenance'],
-        datasets: [{
-            data: [
-                {{ $dataAset['Aktif'] }},
-                {{ $dataAset['Kadaluarsa'] }},
-                {{ $dataAset['Maintenance'] }}
-            ],
-            backgroundColor: ['#4CAF50', '#FF5722', '#FFC107'],
-            borderWidth: 0
-        }]
-    },
-    options: {
-        responsive: true,
-        cutout: '65%',
-        plugins: { legend: { position: 'bottom', labels: { font: { size: 11 } } } }
-    }
-})
-
-// ===== 3. GRAFIK PERTUMBUHAN PELANGGAN =====
-const pelangganData = @json($dataPertumbuhanPelanggan);
-
-const pelangganLabels = Object.keys(pelangganData).map(b => {
-    const [year, month] = b.split('-')
-    const nama = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Ags","Sep","Okt","Nov","Des"]
-    return nama[parseInt(month) - 1] + ' ' + year
-})
-
-new Chart(document.getElementById('growthChart'), {
-    type: 'line',
-    data: {
-        labels: pelangganLabels,
-        datasets: [{
-            label: 'Pelanggan Baru',
-            data: Object.values(pelangganData),
-            borderColor: '#42A5F5',
-            backgroundColor: 'rgba(66,165,245,0.15)',
-            borderWidth: 2,
-            tension: 0.4,
-            fill: true,
-            pointRadius: 4,
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: { y: { beginAtZero: true } }
     }
 })
 </script>
