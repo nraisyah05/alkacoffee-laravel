@@ -1,13 +1,14 @@
 {{-- start sidebar --}}
 <nav id="sidebarMenu" class="sidebar d-lg-block bg-gray-800 text-white collapse" data-simplebar>
-    {{-- logo kopi starling --}}
-    <img src="{{ asset('assets-admin/img/brand/logo.jpg') }}"
-        class="card-img-top rounded-circle border-white d-block mx-auto mt-3" alt="Bonnie Green"
-        style="width: 120px; height: 120px;">
-    <a href="{{ route('home') }}"
-        style="font-size: 24px; font-weight: bold; color: white; text-decoration: none; padding: 10px; display: inline-block; margin-left: 40px;">
-        PALANTHA BRAKFAST & CAFE
-    </a>
+    {{-- logo palantha --}}
+    <div class="text-center mt-3">
+        <img src="{{ asset('assets-admin/img/brand/logo.jpg') }}" class="rounded-circle border-white" alt="Logo Palantha"
+            style="width: 120px; height: 120px;">
+        <a href="{{ route('home') }}"
+            style="font-size: 18px; font-weight: bold; color: white; text-decoration: none; display: block; margin-top: 8px;">
+            PALANTHA BRAKFAST & CAFE
+        </a>
+    </div>
     <div class="sidebar-inner px-4 pt-3">
         <div
             class="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
